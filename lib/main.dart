@@ -76,8 +76,7 @@ class MyApp extends StatelessWidget {
                   },
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
-                      primaryColor: const Color(0xffF0795E),
-                      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffF0795E)),
+                      scaffoldBackgroundColor: Colors.black,
                       useMaterial3: true,
                       appBarTheme: const AppBarTheme(
                           systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -85,11 +84,11 @@ class MyApp extends StatelessWidget {
                           elevation: 0,
                           centerTitle: true,
                           titleTextStyle: TextStyle(color: Colors.white, fontSize: 18),
-                          backgroundColor: Color(0xffF0795E)),
+                          backgroundColor: Colors.black),
                       dividerTheme: const DividerThemeData(color: Color(0xffe9e9e9)),
                       dividerColor: const Color(0xffe9e9e9)),
                   initialBinding: RootBinding(),
-                  initialRoute: RoutePath.HOME_PAGE,
+                  initialRoute: RoutePath.LOGIN_PAGE,
                   getPages: AppPages.routes);
             }));
   }
