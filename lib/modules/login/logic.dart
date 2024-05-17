@@ -15,4 +15,11 @@ class LoginLogic extends BaseLogic {
   Future login() async {
     Get.offNamed(RoutePath.HOME_PAGE);
   }
+
+  @override
+  void onClose() {
+    accountController.dispose();
+    passwordController.dispose();
+    super.onClose();
+  }
 }

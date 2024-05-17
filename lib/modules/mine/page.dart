@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/route/route_path.dart';
 import 'package:tiktok/widgets/avatar_image.dart';
@@ -43,14 +44,19 @@ class MinePage extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.r), border: Border.all(color: Colors.white, width: 1)),
             child: Column(children: [
-              Row(children: [
-                CircleAvatar(
-                    backgroundColor: const Color(0xff3ED987),
-                    radius: 30.r,
-                    child: const Icon(Icons.ac_unit, color: Colors.white)),
-                SizedBox(width: 20.w),
-                Text("Team management", style: TextStyle(color: Colors.white, fontSize: 18.sp))
-              ]),
+              GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RoutePath.REGISTER_PAGE);
+                  },
+                  behavior: HitTestBehavior.translucent,
+                  child: Row(children: [
+                    CircleAvatar(
+                        backgroundColor: const Color(0xff3ED987),
+                        radius: 30.r,
+                        child: const Icon(FontAwesomeIcons.peopleGroup, color: Colors.white)),
+                    SizedBox(width: 20.w),
+                    Text("Team management", style: TextStyle(color: Colors.white, fontSize: 18.sp))
+                  ])),
               SizedBox(height: 40.h),
               Row(children: [
                 Text("10%",
@@ -61,7 +67,7 @@ class MinePage extends StatelessWidget {
             ])),
         Container(
             padding: EdgeInsets.only(left: 30.w),
-            child: Text("system management",
+            child: Text("system\nmanagement",
                 style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold))),
         SizedBox(height: 20.h),
         Row(children: [
@@ -78,7 +84,9 @@ class MinePage extends StatelessWidget {
               ])),
           SizedBox(width: 35.w),
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(RoutePath.PROMOTION_PAGE);
+              },
               behavior: HitTestBehavior.translucent,
               child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
                 Icon(Icons.share, color: Colors.white, size: 25.r),

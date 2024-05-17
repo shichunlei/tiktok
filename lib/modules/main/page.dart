@@ -37,7 +37,7 @@ class MainPage extends StatelessWidget {
                     onTap: () => logic.onItemTapped(0),
                     isChecked: logic.selectedIndex.value == 0),
                 NavTab(
-                    icon: FontAwesomeIcons.compass,
+                    icon: FontAwesomeIcons.magnifyingGlass,
                     onTap: () => logic.onItemTapped(1),
                     isChecked: logic.selectedIndex.value == 1),
                 Expanded(
@@ -46,7 +46,7 @@ class MainPage extends StatelessWidget {
                             onTap: () => logic.onItemTapped(2),
                             child: PostVideoButton(inverted: logic.selectedIndex.value == 2)))),
                 NavTab(
-                    icon: FontAwesomeIcons.message,
+                    icon: FontAwesomeIcons.wallet,
                     onTap: () => logic.onItemTapped(3),
                     isChecked: logic.selectedIndex.value == 3),
                 NavTab(

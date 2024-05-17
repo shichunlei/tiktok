@@ -26,8 +26,9 @@ class ResetPasswordPage extends StatelessWidget {
               Text("Original password", style: TextStyle(color: const Color(0xff333333), fontSize: 16.sp)),
               SizedBox(height: 10.h),
               TextField(
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
-                  // controller: logic.originalPasswordController,
+                  controller: logic.originalPasswordController,
                   decoration: InputDecoration(
                       hintText: "Please enter the original password",
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 16.sp, fontWeight: FontWeight.normal))),
@@ -35,8 +36,9 @@ class ResetPasswordPage extends StatelessWidget {
               Text("New password", style: TextStyle(color: const Color(0xff333333), fontSize: 16.sp)),
               SizedBox(height: 10.h),
               TextField(
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
-                  // controller: logic.newPasswordController,
+                  controller: logic.newPasswordController,
                   decoration: InputDecoration(
                       hintText: "Please enter a new password",
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 16.sp, fontWeight: FontWeight.normal))),
@@ -44,8 +46,9 @@ class ResetPasswordPage extends StatelessWidget {
               Text("Confirm password", style: TextStyle(color: const Color(0xff333333), fontSize: 16.sp)),
               SizedBox(height: 10.h),
               TextField(
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
-                  // controller: logic.confirmPasswordController,
+                  controller: logic.confirmPasswordController,
                   decoration: InputDecoration(
                       hintText: "Please enter your password again",
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 16.sp, fontWeight: FontWeight.normal))),

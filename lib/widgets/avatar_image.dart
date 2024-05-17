@@ -46,9 +46,9 @@ class AvatarImageView extends StatelessWidget {
                     height: 2 * radius,
                     imageUrl: path,
                     placeholder: (_, url) =>
-                        Image.asset("assets/images/favicon.ico", width: 2 * radius, height: 2 * radius),
+                        Image.asset("assets/images/logo.png", width: 2 * radius, height: 2 * radius),
                     errorWidget: (_, url, error) =>
-                        Image.asset("assets/images/favicon.ico", width: 2 * radius, height: 2 * radius),
+                        Image.asset("assets/images/logo.png", width: 2 * radius, height: 2 * radius),
                     fit: fit,
                     fadeInDuration: Duration.zero,
                     fadeOutDuration: Duration.zero,
@@ -57,4 +57,4 @@ class AvatarImageView extends StatelessWidget {
   }
 }
 
-CacheManager cacheManager = CacheManager(Config('qzm_image', maxNrOfCacheObjects: 30));
+CacheManager cacheManager = CacheManager(Config('tiktok_image', maxNrOfCacheObjects: 30));
