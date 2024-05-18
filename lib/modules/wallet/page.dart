@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/widgets/radius_inkwell_widget.dart';
@@ -13,9 +14,14 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("wallet"), centerTitle: true, actions: [
-          Center(child: TextButton(onPressed: () {}, child: const Text("bill", style: TextStyle(color: Colors.white))))
-        ]),
+        appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle.light,
+            title: const Text("wallet"),
+            centerTitle: true,
+            actions: [
+              Center(
+                  child: TextButton(onPressed: () {}, child: const Text("bill", style: TextStyle(color: Colors.white))))
+            ]),
         body: Column(children: [
           SizedBox(height: 40.h),
           Text("Wallet balance", style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w600)),

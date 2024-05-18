@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/widgets/radius_inkwell_widget.dart';
@@ -14,6 +15,7 @@ class ResetPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
             centerTitle: true,
             title: const Text("Change password", style: TextStyle(color: Colors.black)),
             backgroundColor: Colors.white,

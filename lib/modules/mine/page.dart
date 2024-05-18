@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -15,8 +16,9 @@ class MinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(systemOverlayStyle: SystemUiOverlayStyle.light),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SizedBox(height: 150.h),
+        SizedBox(height: 80.h),
         Row(children: [
           SizedBox(width: 15.w),
           AvatarImageView("https://img.zcool.cn/community/0107c35ba37431a801213dea3bc6d2.jpg@1280w_1l_2o_100sh.jpg",

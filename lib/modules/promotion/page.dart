@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -15,8 +16,11 @@ class PromotionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar:
-            AppBar(iconTheme: const IconThemeData(color: Colors.black), backgroundColor: Colors.white, elevation: 0),
+        appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
+            iconTheme: const IconThemeData(color: Colors.black),
+            backgroundColor: Colors.white,
+            elevation: 0),
         body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           SizedBox(height: 80.h),
           Icon(FontAwesomeIcons.tiktok, color: Colors.black, size: 50.r),
