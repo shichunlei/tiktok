@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/widgets/radius_inkwell_widget.dart';
 
@@ -36,15 +35,14 @@ class LoginPage extends StatelessWidget {
                           decoration:
                               BoxDecoration(borderRadius: BorderRadius.circular(300), color: const Color(0xff9e9e9e)),
                           alignment: Alignment.center,
-                          child: SvgPicture.asset("assets/svg/logo.svg", width: 150.r, height: 150.r)))),
-              SizedBox(height: 20.h),
+                          child: Image.asset("assets/images/logo_circle.png", width: 150.r, height: 150.r)))),
+              SizedBox(height: 40.h),
               Container(
                   alignment: Alignment.center,
                   width: double.infinity,
-                  child: Text("TikTok",
-                      style: TextStyle(color: Colors.white, fontSize: 60.sp, fontWeight: FontWeight.bold))),
+                  child: Image.asset("assets/images/tiktok.webp", height: 40.h, fit: BoxFit.fitHeight)),
               Container(
-                  margin: EdgeInsets.symmetric(vertical: 30.h),
+                  margin: EdgeInsets.symmetric(vertical: 40.h),
                   alignment: Alignment.center,
                   width: double.infinity,
                   child: Text("Account password login",

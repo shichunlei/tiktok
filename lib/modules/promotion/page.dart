@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:tiktok/global/icon_font.dart';
 import 'package:tiktok/widgets/radius_inkwell_widget.dart';
 
 import 'logic.dart';
@@ -23,13 +23,13 @@ class PromotionPage extends StatelessWidget {
             elevation: 0),
         body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           SizedBox(height: 80.h),
-          Icon(FontAwesomeIcons.tiktok, color: Colors.black, size: 50.r),
+          Icon(IconFont.space, color: Colors.black, size: 50.r),
           SizedBox(height: 40.h),
           Text("TikTok Changes the World Short Video Platform", style: TextStyle(color: Colors.black, fontSize: 16.sp)),
           SizedBox(height: 100.h),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Icon(FontAwesomeIcons.link, size: 16.r, color: const Color(0xff666666)),
-            SizedBox(width: 20.w),
+            const Icon(IconFont.link, color: Color(0xff666666)),
+            SizedBox(width: 10.w),
             Text("Download link.com", style: TextStyle(color: const Color(0xff999999), fontSize: 14.sp))
           ]),
           SizedBox(height: 30.h),

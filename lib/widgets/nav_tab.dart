@@ -15,7 +15,7 @@ class NavTab extends StatelessWidget {
             behavior: HitTestBehavior.translucent,
             onTap: onTap?.call,
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Icon(icon, color: Colors.white, size: 20.r),
+              Icon(icon, color: Colors.white, size: 25.r),
               Container(
                   margin: EdgeInsets.symmetric(vertical: 5.h),
                   color: isChecked ? Colors.white : Colors.transparent,

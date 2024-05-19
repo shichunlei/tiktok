@@ -77,9 +77,9 @@ class RadiusInkWellWidget extends StatelessWidget {
                     ]
                 : [],
             border: border,
-            borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 15.w)),
+            borderRadius: borderRadius ?? BorderRadius.circular((radius ?? 15.r) + 1)),
         child: ClipRRect(
-            borderRadius: borderRadius as BorderRadius? ?? BorderRadius.circular(radius ?? 15.w),
+            borderRadius: borderRadius as BorderRadius? ?? BorderRadius.circular(radius ?? 15.r),
             child: Material(
                 elevation: elevation,
                 color: colors.isNotEmpty
@@ -87,14 +87,14 @@ class RadiusInkWellWidget extends StatelessWidget {
                     : color ?? (onPressed == null ? const Color(0xffcfcfcf) : Theme.of(context).primaryColor),
                 child: Ink(
                     decoration: BoxDecoration(
-                        borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 15.w),
+                        borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 15.r),
                         gradient: colors.isNotEmpty ? LinearGradient(colors: colors, begin: begin, end: end) : null),
                     child: InkWell(
                         onLongPress: onLongPress,
                         onTapCancel: onTapCancel,
                         onTapDown: onTapDown,
                         onDoubleTap: onDoubleTap,
-                        borderRadius: borderRadius as BorderRadius? ?? BorderRadius.circular(radius ?? 15.w),
+                        borderRadius: borderRadius as BorderRadius? ?? BorderRadius.circular(radius ?? 15.r),
                         onTap: onPressed,
                         child: Padding(padding: padding!, child: child))))));
   }
