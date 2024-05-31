@@ -21,6 +21,7 @@ class WithdrawalPage extends StatelessWidget {
               Text("USDT withdrawal address", style: TextStyle(color: Colors.white, fontSize: 18.sp)),
               SizedBox(height: 10.h),
               TextField(
+                  controller: logic.addressController,
                   style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.normal),
                   decoration: InputDecoration(
                       hintText: "Please enter the withdrawal address",
@@ -30,25 +31,27 @@ class WithdrawalPage extends StatelessWidget {
               Row(children: [
                 Text("Select network", style: TextStyle(color: Colors.white, fontSize: 16.sp)),
                 SizedBox(width: 10.w),
-                DropdownMenu<String>(
-                    onSelected: (value) {
-                      Log.d("$value");
-                    },
-                    inputDecorationTheme: InputDecorationTheme(
-                        outlineBorder: const BorderSide(color: Colors.white),
-                        border: const OutlineInputBorder(gapPadding: 0),
-                        hintStyle: const TextStyle(color: Colors.grey),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10.w)),
-                    dropdownMenuEntries: const [
-                      DropdownMenuEntry(value: "1", label: 'TRC20 Min 10U'),
-                      DropdownMenuEntry(value: "2", label: 'BEP20 Min 0.5U test'),
-                      DropdownMenuEntry(value: "3", label: 'polygon Min 5U')
-                    ],
-                    hintText: "Please select",
-                    menuStyle: const MenuStyle(padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero)),
-                    selectedTrailingIcon: const Icon(Icons.keyboard_arrow_up, color: Colors.white),
-                    trailingIcon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
-                    textStyle: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w500))
+                Obx(() {
+                  return DropdownMenu<String>(
+                      onSelected: (value) {
+                        Log.d("$value");
+                        logic.networkChannelId.value = value;
+                      },
+                      inputDecorationTheme: InputDecorationTheme(
+                          outlineBorder: const BorderSide(color: Colors.white),
+                          border: const OutlineInputBorder(gapPadding: 0),
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10.w)),
+                      dropdownMenuEntries: List.generate(
+                          logic.addresses.length,
+                          (index) => DropdownMenuEntry(
+                              value: "${logic.addresses[index].id}", label: '${logic.addresses[index].name}')),
+                      hintText: "Please select",
+                      menuStyle: const MenuStyle(padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero)),
+                      selectedTrailingIcon: const Icon(Icons.keyboard_arrow_up, color: Colors.white),
+                      trailingIcon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
+                      textStyle: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w500));
+                })
               ]),
               SizedBox(height: 10.h),
               Text("Arrival time: Within 24 hours", style: TextStyle(color: Colors.white, fontSize: 16.sp)),
@@ -65,6 +68,7 @@ class WithdrawalPage extends StatelessWidget {
                     Text("\$", style: TextStyle(fontSize: 30.sp, color: Colors.white, fontWeight: FontWeight.w700)),
                     Expanded(
                         child: TextField(
+                            controller: logic.priceController,
                             style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.normal),
                             decoration: InputDecoration(
                                 border: InputBorder.none, contentPadding: EdgeInsets.symmetric(horizontal: 5.w))))
@@ -77,6 +81,7 @@ class WithdrawalPage extends StatelessWidget {
                 SizedBox(
                     width: .5.sw,
                     child: TextField(
+                        controller: logic.passwordController,
                         style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.normal),
                         decoration: InputDecoration(
                             hintText: "enter password",
@@ -85,7 +90,7 @@ class WithdrawalPage extends StatelessWidget {
               ]),
               RadiusInkWellWidget(
                   margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                  onPressed: () {},
+                  onPressed: logic.confirm,
                   color: Colors.white,
                   radius: 4.r,
                   child: Container(
@@ -93,9 +98,11 @@ class WithdrawalPage extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Text("confirm",
                           style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w600)))),
-              Center(
-                  child: Text("Withdrawal service free charged at 10% USDT",
-                      style: TextStyle(color: Colors.white, fontSize: 12.sp)))
+              Center(child: Obx(() {
+                return Text(
+                    "Withdrawal service free charged at ${logic.withdrawalRecordInfo.value?.serviceCharge}% USDT",
+                    style: TextStyle(color: Colors.white, fontSize: 12.sp));
+              }))
             ])));
   }
 }

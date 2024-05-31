@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/global/icon_font.dart';
+import 'package:tiktok/widgets/obx_widget.dart';
 import 'package:tiktok/widgets/radius_inkwell_widget.dart';
 
 import 'logic.dart';
@@ -56,7 +57,7 @@ class RegisterPage extends StatelessWidget {
                 ]),
                 RadiusInkWellWidget(
                     margin: EdgeInsets.symmetric(horizontal: 50.w, vertical: 10.h),
-                    onPressed: () {},
+                    onPressed: logic.register,
                     color: Colors.white,
                     radius: 40,
                     child: Container(
@@ -71,28 +72,36 @@ class RegisterPage extends StatelessWidget {
               child: Text("Team account",
                   style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w600))),
           Expanded(
-              child: ListView.separated(
-                  itemBuilder: (_, index) {
-                    return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15.w),
-                        child: Row(children: [
-                          Icon(IconFont.user, color: Colors.black, size: 15.r),
-                          SizedBox(width: 10.w),
-                          Text("XXX123242", style: TextStyle(color: Colors.black, fontSize: 14.sp)),
-                          SizedBox(width: 8.w),
-                          Container(
-                              height: 25.h,
-                              alignment: Alignment.topRight,
-                              padding: EdgeInsets.only(top: 5.h),
-                              child: Container(
-                                  height: 8.r,
-                                  width: 8.r,
-                                  decoration:
-                                      BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.green)))
-                        ]));
-                  },
-                  separatorBuilder: (_, index) => SizedBox(height: 10.h),
-                  itemCount: 10))
+              child: BaseWidget(
+                  logic: logic,
+                  bgColor: Colors.white,
+                  builder: (RegisterLogic logic) {
+                    return ListView.separated(
+                        itemBuilder: (_, index) {
+                          return Container(
+                              padding: EdgeInsets.symmetric(horizontal: 15.w),
+                              child: Row(children: [
+                                Icon(IconFont.user, color: Colors.black, size: 15.r),
+                                SizedBox(width: 10.w),
+                                Text("${logic.list[index].username}",
+                                    style: TextStyle(color: Colors.black, fontSize: 14.sp)),
+                                SizedBox(width: 8.w),
+                                Visibility(
+                                    visible: logic.list[index].onlineState,
+                                    child: Container(
+                                        height: 25.h,
+                                        alignment: Alignment.topRight,
+                                        padding: EdgeInsets.only(top: 5.h),
+                                        child: Container(
+                                            height: 8.r,
+                                            width: 8.r,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5), color: Colors.green))))
+                              ]));
+                        },
+                        separatorBuilder: (_, index) => SizedBox(height: 10.h),
+                        itemCount: logic.list.length);
+                  }))
         ]));
   }
 }

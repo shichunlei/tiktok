@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
                       dividerTheme: const DividerThemeData(color: Color(0xffe9e9e9)),
                       dividerColor: const Color(0xffe9e9e9)),
                   initialBinding: RootBinding(),
-                  initialRoute: RoutePath.LOGIN_PAGE,
+                  initialRoute: initialRoute,
                   getPages: AppPages.routes);
             }));
   }

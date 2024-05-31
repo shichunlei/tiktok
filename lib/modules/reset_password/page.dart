@@ -56,7 +56,7 @@ class ResetPasswordPage extends StatelessWidget {
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 16.sp, fontWeight: FontWeight.normal))),
               SizedBox(height: 45.h),
               RadiusInkWellWidget(
-                  onPressed: () {},
+                  onPressed: logic.updatePassword,
                   radius: 0,
                   color: Colors.black,
                   child: Container(

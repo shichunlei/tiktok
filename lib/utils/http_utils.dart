@@ -1,10 +1,13 @@
 import 'package:ansicolor/ansicolor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:tiktok/global/config.dart';
 import 'package:tiktok/global/keys.dart';
+import 'package:tiktok/route/route_path.dart';
+import 'package:tiktok/utils/sp_util.dart';
 
 import 'log_utils.dart';
 
@@ -12,10 +15,11 @@ class HttpUtils {
   /// http request methods
   static const String GET = 'get';
   static const String POST = 'post';
+  static const String PUT = 'put';
+  static const String DELETE = 'delete';
 
   static const int CONNECT_TIMEOUT = 30000;
   static const int RECEIVE_TIMEOUT = 30000;
-  static const int UPLOAD_TIMEOUT = 30000;
 
   Dio? _dio;
 
@@ -77,12 +81,23 @@ class HttpUtils {
   /// [params] The request data
   ///
   /// String 返回 json data .
-  Future request(String path, {Map<String, dynamic> params = const {}, String method = POST}) async {
+  Future request(String path,
+      {Map<String, dynamic> params = const {}, String method = POST, String contentType = "application/json"}) async {
     try {
-      Response response =
-          await _dio!.request(path, data: params, queryParameters: params, options: Options(method: method));
+      String token = SpUtil.getString("_TOKEN_", defValue: "");
+
+      Response response = await _dio!.request(path,
+          data: params,
+          queryParameters: params,
+          options: Options(method: method, headers: {"contentType": contentType, "authorization": token}));
 
       if (response.statusCode == 200) {
+        // if (response.data["code"] == "") {
+        //   // token 失效
+        //   SpUtil.remove("_TOKEN_");
+        //   Get.offAllNamed(RoutePath.LOGIN_PAGE);
+        // }
+
         return response.data;
       } else {
         return {"msg": "请求发生错误", "code": -1};
@@ -92,28 +107,6 @@ class HttpUtils {
       Log.d('$method请求发生错误：${error.toString()}');
 
       return formatError(error);
-    }
-  }
-
-  /// Make http request with options.
-  ///
-  /// [path] The url path.
-  /// [params] The request data
-  ///
-  /// String 返回 json data .
-  Future get(String path, {Map<String, dynamic> params = const {}}) async {
-    try {
-      Response response = await _dio!.get(path, queryParameters: params);
-
-      if (response.statusCode == 200) {
-        return response;
-      } else {
-        return null;
-      }
-    } on DioException catch (error) {
-      /// 响应信息, 如果错误发生在服务器返回数据之前，它为 `null`
-      Log.d('请求发生错误：${error.toString()}');
-      return null;
     }
   }
 
@@ -165,13 +158,6 @@ class HttpUtils {
       // Default error type, Some other Error. In this case, you can use the DioError.error if it is not null.
       return {Keys.MSG: "未知错误 Ծ‸ Ծ", Keys.CODE: 105};
     }
-  }
-
-  /// 取消请求
-  ///
-  /// 同一个cancel token 可以用于多个请求，当一个cancel token取消时，所有使用该cancel token的请求都会被取消。所以参数可选
-  void cancelRequests(CancelToken token) {
-    token.cancel("cancelled");
   }
 }
 

@@ -17,3 +17,4 @@ test
 generated_plugin_registrant.dart
 gradle-wrapper.properties
 build
+*.g.dart

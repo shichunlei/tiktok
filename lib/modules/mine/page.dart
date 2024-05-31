@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/global/icon_font.dart';
 import 'package:tiktok/route/route_path.dart';
+import 'package:tiktok/utils/sp_util.dart';
 import 'package:tiktok/widgets/avatar_image.dart';
 
 import 'logic.dart';
@@ -30,24 +31,24 @@ class MinePage extends StatelessWidget {
                     borderWidth: 1),
                 SizedBox(width: 15.w),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("XXX123",
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15.sp)),
-                      Container(
-                          margin: EdgeInsets.only(top: 10.h),
-                          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 1.h),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(width: 1, color: const Color(0xffE39940))),
-                          child: Text("1year",
-                              style: TextStyle(
-                                  color: const Color(0xffF8C702), fontWeight: FontWeight.w600, fontSize: 14.sp)))
-                    ],
-                  ),
-                ),
+                    child:
+                        Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+                  Obx(() {
+                    return Text(logic.bean.value?.username ?? "",
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15.sp));
+                  }),
+                  Container(
+                      margin: EdgeInsets.only(top: 10.h),
+                      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 1.h),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(width: 1, color: const Color(0xffE39940))),
+                      child: Obx(() {
+                        return Text(logic.bean.value?.name ?? "未激活",
+                            style: TextStyle(
+                                color: const Color(0xffF8C702), fontWeight: FontWeight.w600, fontSize: 14.sp));
+                      }))
+                ])),
                 SizedBox(width: 15.w)
               ]),
               Container(
@@ -72,9 +73,11 @@ class MinePage extends StatelessWidget {
                         ])),
                     SizedBox(height: 40.h),
                     Row(children: [
-                      Text("10%",
-                          style:
-                              TextStyle(color: const Color(0xffF9632A), fontSize: 38.sp, fontWeight: FontWeight.w600)),
+                      Obx(() {
+                        return Text("${logic.commissionRate.value}%",
+                            style: TextStyle(
+                                color: const Color(0xffF9632A), fontSize: 38.sp, fontWeight: FontWeight.w600));
+                      }),
                       SizedBox(width: 20.w),
                       Text("Rebate ratio", style: TextStyle(color: Colors.white, fontSize: 18.sp))
                     ])
@@ -109,7 +112,10 @@ class MinePage extends StatelessWidget {
                     ])),
                 SizedBox(width: 45.w),
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      SpUtil.remove("_TOKEN_");
+                      Get.offAllNamed(RoutePath.LOGIN_PAGE);
+                    },
                     behavior: HitTestBehavior.translucent,
                     child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
                       Icon(IconFont.quit, color: Colors.white, size: 25.r),
