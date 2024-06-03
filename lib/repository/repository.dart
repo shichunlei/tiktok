@@ -6,6 +6,7 @@ import 'package:tiktok/beans/login_result.dart';
 import 'package:tiktok/beans/recharge_address.dart';
 import 'package:tiktok/beans/sub_user.dart';
 import 'package:tiktok/beans/user_info.dart';
+import 'package:tiktok/beans/video.dart';
 import 'package:tiktok/beans/withdrawal_address.dart';
 import 'package:tiktok/beans/withdrawal_record_info.dart';
 import 'package:tiktok/utils/http_utils.dart';
@@ -15,7 +16,8 @@ class Repository {
   /// 登录
   static Future<LoginResult?> login({String? username, String? password}) async {
     var response = await HttpUtils.getInstance().request('/login',
-        params: {"username": username, "password": password}, contentType: "application/x-www-form-urlencoded");
+        params: {"username": username, "password": password, "remember": true},
+        contentType: "application/x-www-form-urlencoded");
     BaseBean result = BaseBean.fromJsonToObject(response);
     if (result.code == 200) {
       return LoginResult.fromJson(result.data);
@@ -178,10 +180,15 @@ class Repository {
     }
   }
 
-  /// 首页视频列表 todo
+  /// 首页视频列表
   ///
-  static Future<Map?> videoUpload() async {
+  static Future<List<Video>> videoUpload() async {
     var response = await HttpUtils.getInstance().request('/video-upload', method: HttpUtils.GET);
-    return response;
+    BaseBean result = BaseBean.fromJsonToList(response);
+    if (result.code == 200) {
+      return result.items.map((e) => Video.fromJson(e)).toList();
+    } else {
+      return [];
+    }
   }
 }

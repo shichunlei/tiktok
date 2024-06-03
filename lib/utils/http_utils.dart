@@ -92,11 +92,11 @@ class HttpUtils {
           options: Options(method: method, headers: {"contentType": contentType, "authorization": token}));
 
       if (response.statusCode == 200) {
-        // if (response.data["code"] == "") {
-        //   // token 失效
-        //   SpUtil.remove("_TOKEN_");
-        //   Get.offAllNamed(RoutePath.LOGIN_PAGE);
-        // }
+        if (response.data["code"] == 40003 || response.data["code"] == 40005) {
+          // 请求携带的 token 令牌过期 / 登录过期
+          SpUtil.remove("_TOKEN_");
+          Get.offAllNamed(RoutePath.LOGIN_PAGE);
+        }
 
         return response.data;
       } else {

@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:tiktok/base/base_logic.dart';
+import 'package:tiktok/base/base_list_logic.dart';
+import 'package:tiktok/beans/video.dart';
+import 'package:tiktok/repository/repository.dart';
 import 'package:tiktok/utils/log_utils.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-class HomeLogic extends BaseLogic {
+class HomeLogic extends BaseListLogic<Video> {
   PageController pageController = PageController();
 
   List<String> videos = [
@@ -32,6 +34,17 @@ class HomeLogic extends BaseLogic {
   void onReady() {
     WakelockPlus.enable();
     super.onReady();
+  }
+
+  @override
+  void onInit() {
+    initData();
+    super.onInit();
+  }
+
+  @override
+  Future<List<Video>> loadData() async {
+    return await Repository.videoUpload();
   }
 
   void onPageChanged(int page) {}

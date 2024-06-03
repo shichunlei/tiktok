@@ -8,7 +8,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/route/app_pages.dart';
-import 'package:tiktok/route/route_path.dart';
 import 'package:tiktok/utils/log_utils.dart';
 import 'package:tiktok/utils/sp_util.dart';
 
