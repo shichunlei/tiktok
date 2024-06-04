@@ -49,22 +49,25 @@ class HomePage extends StatelessWidget {
                           },
                           onPanEnd: (DragEndDetails details) {
                             Log.d("onPanEnd===============>${details.toString()}");
-                            if (logic.leftTopX.value - logic.viewWidth < .5.sw) {
-                              logic.leftTopX.value = 15.w;
-                            }
+                            if (logic.leftTopX.value - logic.viewWidth < .5.sw) logic.leftTopX.value = 15.w;
 
-                            if (logic.leftTopX.value > .5.sw) {
-                              logic.leftTopX.value = 1.sw - logic.viewWidth - 15.w;
-                            }
+                            if (logic.leftTopX.value > .5.sw) logic.leftTopX.value = 1.sw - logic.viewWidth - 15.w;
                           },
                           child: SizedBox(
                               width: logic.viewWidth,
                               height: logic.viewWidth,
-                              child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  value: (30 - logic.countdownTime.value) / 30,
-                                  valueColor: const AlwaysStoppedAnimation<Color>(Color(0xffFFCC02)),
-                                  backgroundColor: const Color(0xff484d59)))));
+                              child: Stack(children: [
+                                Positioned.fill(
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        value: (30 - logic.countdownTime.value) / 30,
+                                        valueColor: const AlwaysStoppedAnimation<Color>(Color(0xffFFCC02)),
+                                        backgroundColor: const Color(0xff484d59))),
+                                Center(child: Obx(() {
+                                  return Text("${logic.countdownTime.value}S",
+                                      style: TextStyle(color: const Color(0xffFFCC02), fontSize: 14.sp));
+                                }))
+                              ]))));
                 })
               ]);
             }));

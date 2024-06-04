@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:tiktok/beans/base_bean.dart';
 import 'package:tiktok/beans/card_type.dart';
+import 'package:tiktok/beans/earnings.dart';
 import 'package:tiktok/beans/login_result.dart';
 import 'package:tiktok/beans/recharge_address.dart';
 import 'package:tiktok/beans/sub_user.dart';
@@ -27,15 +28,21 @@ class Repository {
     }
   }
 
-  /// 请求红包收益 TODO
+  /// 请求红包收益
   ///
-  static Future<Map?> earnings({int? time, num? amount, String? furtive}) async {
+  static Future<Earnings?> earnings({int? time, num? amount, String? furtive}) async {
     var response = await HttpUtils.getInstance().request('/earnings', params: {
       if (time != null) "time": time,
       if (amount != null) "amount": amount,
       if (furtive != null) "furtive": furtive
     });
-    return response;
+    BaseBean result = BaseBean.fromJsonToObject(response);
+    if (result.code == 200) {
+      return Earnings.fromJson(result.data);
+    } else {
+      showToast(text: "${result.message}");
+      return null;
+    }
   }
 
   /// 注册下级用户
