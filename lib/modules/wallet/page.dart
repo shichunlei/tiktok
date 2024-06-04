@@ -109,8 +109,7 @@ class WalletPage extends StatelessWidget {
                                                         child: Text("${logic.list[index].price} USDT",
                                                             style: TextStyle(color: Colors.white, fontSize: 15.sp))))),
                                             onPressed: () {
-                                              Get.dialog(const PayDialog(),
-                                                  barrierColor: Colors.white30, barrierDismissible: false);
+                                              logic.rechargeRecord(index);
                                             })
                                       ]));
                                 },

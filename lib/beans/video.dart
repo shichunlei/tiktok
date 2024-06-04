@@ -4,7 +4,7 @@ part 'video.g.dart';
 
 @JsonSerializable()
 class Video {
-  String? id;
+  int id;
   String? info;
   String? label;
   String? name;
@@ -16,7 +16,7 @@ class Video {
   int userId;
 
   Video(
-      {this.id,
+      {this.id = 0,
       this.info,
       this.label,
       this.name,

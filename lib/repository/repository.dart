@@ -30,8 +30,11 @@ class Repository {
   /// 请求红包收益 TODO
   ///
   static Future<Map?> earnings({int? time, num? amount, String? furtive}) async {
-    var response = await HttpUtils.getInstance()
-        .request('/earnings', params: {"time": time, "amount": amount, "furtive": furtive});
+    var response = await HttpUtils.getInstance().request('/earnings', params: {
+      if (time != null) "time": time,
+      if (amount != null) "amount": amount,
+      if (furtive != null) "furtive": furtive
+    });
     return response;
   }
 
@@ -63,9 +66,9 @@ class Repository {
 
   /// 激活会员卡 todo
   ///
-  static Future<Map?> rechargeRecord({String? cardTypeId}) async {
+  static Future<BaseBean> rechargeRecord(int cardTypeId) async {
     var response = await HttpUtils.getInstance().request('/rechargeRecord', params: {"cardTypeId": cardTypeId});
-    return response;
+    return BaseBean.fromJson(response);
   }
 
   /// 修改密码

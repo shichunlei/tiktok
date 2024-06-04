@@ -33,6 +33,7 @@ class WithdrawalPage extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Obx(() {
                   return DropdownMenu<String>(
+                      width: 230.w,
                       onSelected: (value) {
                         Log.d("$value");
                         logic.networkChannelId.value = value;

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tiktok/beans/video.dart';
+import 'package:tiktok/global/config.dart';
 import 'package:tiktok/global/icon_font.dart';
 import 'package:tiktok/widgets/avatar_image.dart';
 import 'package:video_player/video_player.dart';
@@ -10,11 +12,11 @@ import 'logic.dart';
 
 class VideoPage extends StatelessWidget {
   final String tag;
-  final String videoUrl;
+  final Video video;
 
-  const VideoPage({super.key, required this.tag, required this.videoUrl});
+  const VideoPage({super.key, required this.tag, required this.video});
 
-  VideoLogic get logic => Get.put(VideoLogic(videoUrl), tag: tag);
+  VideoLogic get logic => Get.put(VideoLogic(video.url!), tag: tag);
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +55,17 @@ class VideoPage extends StatelessWidget {
                 left: 10.w,
                 right: 10.w,
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text("승녕", style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold)),
+                  Text("${video.label}",
+                      style: TextStyle(fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.bold)),
                   SizedBox(height: 10.h),
-                  Text('This is my house in Thailand!!!', style: TextStyle(fontSize: 16.sp, color: Colors.white))
+                  Text('${video.info}', style: TextStyle(fontSize: 16.sp, color: Colors.white))
                 ])),
             Positioned(
                 bottom: 20.h,
                 right: 10.w,
                 child: Column(children: [
                   Stack(clipBehavior: Clip.none, children: [
-                    AvatarImageView("https://avatars.githubusercontent.com/u/33698501?v=4",
+                    AvatarImageView("${AppConfig.baseUrl}img/avatar/${video.profileFile}",
                         radius: 30.r, borderWidth: 2.r, borderColor: Colors.white),
                     Positioned(
                         bottom: -8.h,
@@ -76,19 +79,19 @@ class VideoPage extends StatelessWidget {
                                 child: Icon(Icons.add, color: Colors.white, size: 13.r))))
                   ]),
                   SizedBox(height: 10.h),
-                  Text("张安", style: TextStyle(color: Colors.white, fontSize: 15.sp)),
+                  Text("${video.name}", style: TextStyle(color: Colors.white, fontSize: 15.sp)),
                   SizedBox(height: 40.h),
                   Icon(IconFont.like, color: Colors.white, size: 35.r),
                   SizedBox(height: 5.h),
-                  Text("1233", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
+                  Text("${video.likeCount}", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
                   SizedBox(height: 20.h),
                   Icon(IconFont.comment, color: Colors.white, size: 35.r),
                   SizedBox(height: 5.h),
-                  Text("1233", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
+                  Text("${video.commentsCount}", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
                   SizedBox(height: 20.h),
                   Icon(IconFont.share, color: Colors.white, size: 35.r),
                   SizedBox(height: 5.h),
-                  Text("1233", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
+                  Text("${video.shareCount}", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
                   SizedBox(height: 80.h),
                 ])),
             Positioned(
