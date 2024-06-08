@@ -44,7 +44,7 @@ class MinePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(width: 1, color: const Color(0xffE39940))),
                       child: Obx(() {
-                        return Text(logic.bean.value?.name ?? "未激活",
+                        return Text(logic.bean.value?.cardTypeName ?? "未激活",
                             style: TextStyle(
                                 color: const Color(0xffF8C702), fontWeight: FontWeight.w600, fontSize: 14.sp));
                       }))

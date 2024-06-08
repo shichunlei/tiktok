@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/global/icon_font.dart';
+import 'package:tiktok/utils/toast_util.dart';
 import 'package:tiktok/widgets/obx_widget.dart';
 import 'package:tiktok/widgets/radius_inkwell_widget.dart';
 
@@ -43,7 +44,10 @@ class PromotionPage extends StatelessWidget {
                 SizedBox(height: 30.h),
                 RadiusInkWellWidget(
                     margin: EdgeInsets.symmetric(horizontal: 30.w),
-                    onPressed: () {},
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: "${logic.bean.value}"));
+                      showToast(text: "已复制到剪切板");
+                    },
                     radius: 2.r,
                     color: Colors.black,
                     child: Container(

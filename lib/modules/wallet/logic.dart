@@ -17,7 +17,7 @@ class WalletLogic extends BaseListLogic<CardType> {
   }
 
   @override
-  Future<List<CardType>?> loadData() async {
+  Future<List<CardType>> loadData() async {
     withdrawalRecordInfo.value = await Repository.withdrawalRecordInfo();
     return await Repository.cardType();
   }
@@ -27,11 +27,8 @@ class WalletLogic extends BaseListLogic<CardType> {
     List<RechargeAddress> addresses = await Repository.rechargeAddress();
     hiddenLoading();
     if (addresses.isNotEmpty) {
-      Get.dialog(const PayDialog(), barrierColor: Colors.white30, barrierDismissible: false);
+      Get.dialog(PayDialog(address: addresses.first, cardId: list[index].id),
+          barrierColor: Colors.white30, barrierDismissible: false);
     }
-
-    // BaseBean result = await Repository.rechargeRecord(list[index].id);
-
-    // if (result.code == 200) {}
   }
 }

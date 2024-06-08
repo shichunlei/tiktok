@@ -53,14 +53,14 @@ class Repository {
     return BaseBean.fromJson(response);
   }
 
-  /// 用户提现操作 todo
+  /// 用户提现操作
   ///
   ///   "money": "5.4",
   ///   "networkChannelId": "1795755200598515714",
   ///   "networkMultipleChannels": "test",
   ///   "password": "123"
   ///
-  static Future<Map?> withdrawalRecord(
+  static Future<BaseBean> withdrawalRecord(
       {String? money, String? networkChannelId, String? networkMultipleChannels, String? password}) async {
     var response = await HttpUtils.getInstance().request('/withdrawalRecord', params: {
       "money": money,
@@ -68,13 +68,14 @@ class Repository {
       "networkChannelId": networkChannelId,
       "networkMultipleChannels": networkMultipleChannels
     });
-    return response;
+    return BaseBean.fromJson(response);
   }
 
-  /// 激活会员卡 todo
+  /// 激活会员卡
   ///
   static Future<BaseBean> rechargeRecord(int cardTypeId) async {
     var response = await HttpUtils.getInstance().request('/rechargeRecord', params: {"cardTypeId": cardTypeId});
+    showToast(text: "${response["message"]}");
     return BaseBean.fromJson(response);
   }
 
@@ -164,7 +165,7 @@ class Repository {
     }
   }
 
-  /// 用户查询启用的充值地址 todo
+  /// 用户查询启用的充值地址
   ///
   static Future<List<RechargeAddress>> rechargeAddress() async {
     var response = await HttpUtils.getInstance().request('/recharge-address/state', method: HttpUtils.GET);

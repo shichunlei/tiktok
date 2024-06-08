@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/utils/log_utils.dart';
@@ -57,31 +58,46 @@ class WithdrawalPage extends StatelessWidget {
               SizedBox(height: 10.h),
               Text("Arrival time: Within 24 hours", style: TextStyle(color: Colors.white, fontSize: 16.sp)),
               SizedBox(height: 25.h),
-              RichText(
-                  text: TextSpan(children: [
-                TextSpan(text: "Withdrawal amount ", style: TextStyle(fontSize: 17.sp)),
-                TextSpan(text: "Minimum withdrawal of 5.4 USDT", style: TextStyle(fontSize: 12.sp))
-              ], style: const TextStyle(color: Colors.white))),
+              Obx(() {
+                return RichText(
+                    text: TextSpan(children: [
+                  TextSpan(text: "Withdrawal amount ", style: TextStyle(fontSize: 17.sp)),
+                  TextSpan(
+                      text: "Minimum withdrawal of ${logic.withdrawalRecordInfo.value?.withdrawalMinAmount} USDT",
+                      style: TextStyle(fontSize: 12.sp))
+                ], style: const TextStyle(color: Colors.white)));
+              }),
               SizedBox(height: 10.h),
               Container(
                   decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Colors.white))),
                   child: Row(children: [
-                    Text("\$", style: TextStyle(fontSize: 30.sp, color: Colors.white, fontWeight: FontWeight.w700)),
+                    Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text("\$",
+                            style: TextStyle(fontSize: 30.sp, color: Colors.white, fontWeight: FontWeight.w700))),
                     Expanded(
                         child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter(RegExp("^[0-9.]+"), allow: true) // 只允许输入数字，字母
+                            ],
                             controller: logic.priceController,
-                            style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.normal),
+                            style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.normal),
                             decoration: InputDecoration(
                                 border: InputBorder.none, contentPadding: EdgeInsets.symmetric(horizontal: 5.w))))
                   ])),
               SizedBox(height: 10.h),
-              Text("Withdrawal amount: 1231 USDT", style: TextStyle(color: Colors.white, fontSize: 16.sp)),
+              Obx(() {
+                return Text("Withdrawal amount: ${logic.withdrawalRecordInfo.value?.balance} USDT",
+                    style: TextStyle(color: Colors.white, fontSize: 16.sp));
+              }),
               SizedBox(height: 30.h),
               Row(children: [
                 Text("Enter password:", style: TextStyle(color: Colors.white, fontSize: 16.sp)),
                 SizedBox(
                     width: .5.sw,
                     child: TextField(
+                        obscureText: true,
                         controller: logic.passwordController,
                         style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.normal),
                         decoration: InputDecoration(

@@ -4,10 +4,11 @@ part 'user_info.g.dart';
 
 @JsonSerializable()
 class UserInfo {
-  String? name;
+  String? cardTypeName;
   String? username;
+  String? balance;
 
-  UserInfo({this.name, this.username});
+  UserInfo({this.cardTypeName, this.username, this.balance});
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
 

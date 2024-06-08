@@ -6,11 +6,9 @@ part 'withdrawal_record_info.g.dart';
 class WithdrawalRecordInfo {
   double withdrawalMinAmount;
   int serviceCharge;
+  double balance;
 
-  WithdrawalRecordInfo({
-    this.withdrawalMinAmount = .0,
-    this.serviceCharge = 0,
-  });
+  WithdrawalRecordInfo({this.withdrawalMinAmount = .0, this.serviceCharge = 0, this.balance = .0});
 
   factory WithdrawalRecordInfo.fromJson(Map<String, dynamic> json) => _$WithdrawalRecordInfoFromJson(json);
 

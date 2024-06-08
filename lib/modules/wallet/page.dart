@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/route/route_path.dart';
 import 'package:tiktok/widgets/obx_widget.dart';
-import 'package:tiktok/widgets/pay_dialog.dart';
 import 'package:tiktok/widgets/radius_inkwell_widget.dart';
 import 'package:tiktok/widgets/state_view/empty_page.dart';
 import 'package:tiktok/widgets/state_view/loading_widget.dart';
@@ -39,7 +38,7 @@ class WalletPage extends StatelessWidget {
                     Text("Wallet balance",
                         style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w600)),
                     SizedBox(height: 10.h),
-                    Text("${logic.withdrawalRecordInfo.value?.withdrawalMinAmount ?? 0}",
+                    Text("${logic.withdrawalRecordInfo.value?.balance ?? 0}",
                         style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w600)),
                     SizedBox(height: 10.h),
                     Text("USDT", style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w600)),

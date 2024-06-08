@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/base/base_logic.dart';
+import 'package:tiktok/beans/base_bean.dart';
 import 'package:tiktok/beans/withdrawal_address.dart';
 import 'package:tiktok/beans/withdrawal_record_info.dart';
 import 'package:tiktok/repository/repository.dart';
@@ -52,13 +53,16 @@ class WithdrawalLogic extends BaseLogic {
     }
 
     showLoading();
-    await Repository.withdrawalRecord(
+    BaseBean result = await Repository.withdrawalRecord(
         password: passwordController.text,
         money: priceController.text,
         networkChannelId: networkChannelId.value,
         networkMultipleChannels: addressController.text);
     hiddenLoading();
 
-
+    if (result.code == 200) {
+    } else {
+      showToast(text: "${result.message}");
+    }
   }
 }

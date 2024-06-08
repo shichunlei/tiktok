@@ -18,7 +18,7 @@ class HomeLogic extends BaseListLogic<Video> {
   var leftTopX = (15.w).obs;
   var leftTopY = (100.h).obs;
 
-  HomeLogic() {}
+  HomeLogic();
 
   @override
   void onReady() {
