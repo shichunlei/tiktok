@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
                         child: builder(context, widget));
                   },
                   navigatorObservers: [BotToastNavigatorObserver()],
-                  title: 'TikTok',
+                  title: 'Tiktok Speed Edition',
                   localizationsDelegates: const [
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
