@@ -8,12 +8,13 @@ import 'package:tiktok/beans/earnings.dart';
 import 'package:tiktok/beans/video.dart';
 import 'package:tiktok/repository/repository.dart';
 import 'package:tiktok/utils/log_utils.dart';
+import 'package:tiktok/utils/toast_util.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class HomeLogic extends BaseListLogic<Video> {
-  PageController pageController = PageController();
+  PageController pageController = PageController(initialPage: 0);
 
-  double viewWidth = 50.r;
+  double viewWidth = 60.r;
 
   var leftTopX = (15.w).obs;
   var leftTopY = (100.h).obs;
@@ -42,18 +43,33 @@ class HomeLogic extends BaseListLogic<Video> {
     if (data.isNotEmpty) earnings();
   }
 
-  Earnings? _earnings;
+  Rx<Earnings?> earningsBean = Rx<Earnings?>(null);
 
   Future earnings() async {
-    _earnings = await Repository.earnings(
-        time: _earnings?.duration, amount: _earnings?.bigDecimal, furtive: _earnings?.furtiveToken);
-    if (_earnings != null) {
-      countdownTime.value = _earnings!.duration;
+    earningsBean.value = await Repository.earnings(
+        time: earningsBean.value?.duration,
+        amount: earningsBean.value?.bigDecimal,
+        furtive: earningsBean.value?.furtiveToken);
+    if (earningsBean.value != null) {
+      countdownTime.value = earningsBean.value!.duration;
       startCountdown();
     }
   }
 
-  void onPageChanged(int page) {}
+  var currentIndex = 0.obs;
+
+  void onPageChanged(int page) {
+    currentIndex.value = page;
+  }
+
+  void next() {
+    if (currentIndex.value >= list.length - 1) {
+      showToast(text: "没有更多视频了");
+    } else {
+      pageController.animateToPage(currentIndex.value + 1,
+          duration: const Duration(milliseconds: 200), curve: Curves.linear);
+    }
+  }
 
   /// 开一个定时器
   //定义变量

@@ -1,11 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/base/base_logic.dart';
+import 'package:tiktok/modules/home/logic.dart';
+import 'package:tiktok/utils/log_utils.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoLogic extends BaseLogic with GetTickerProviderStateMixin {
   final String videoUrl;
+  final bool isLast;
+
+  final debouncer = Debouncer(delay: const Duration(milliseconds: 500));
 
   late VideoPlayerController videoPlayerController;
 
@@ -14,7 +21,7 @@ class VideoLogic extends BaseLogic with GetTickerProviderStateMixin {
 
   late final AnimationController animationController;
 
-  VideoLogic(this.videoUrl);
+  VideoLogic(this.videoUrl, this.isLast);
 
   @override
   void onInit() {
@@ -31,7 +38,7 @@ class VideoLogic extends BaseLogic with GetTickerProviderStateMixin {
       update();
     });
     videoPlayerController
-      ..setLooping(true)
+      ..setLooping(isLast)
       ..addListener(_onVideoChange);
   }
 
@@ -39,6 +46,16 @@ class VideoLogic extends BaseLogic with GetTickerProviderStateMixin {
     if (videoPlayerController.value.isInitialized) {
       duration.value = videoPlayerController.value.duration;
       position.value = videoPlayerController.value.position;
+
+      Log.d("====================${videoPlayerController.value.isCompleted}");
+
+      if (duration.value.inMilliseconds > 0 && duration.value.inMilliseconds <= position.value.inMilliseconds) {
+        videoPlayerController.seekTo(Duration.zero);
+        debouncer.run(() {
+          Log.d("111111111111111111111111111111111111111111111111111111111");
+          Get.find<HomeLogic>().next();
+        });
+      }
     }
   }
 
@@ -71,5 +88,17 @@ class VideoLogic extends BaseLogic with GetTickerProviderStateMixin {
     videoPlayerController.dispose();
     animationController.dispose();
     super.onClose();
+  }
+}
+
+class Debouncer {
+  final Duration delay;
+  Timer? _timer;
+
+  Debouncer({required this.delay});
+
+  void run(VoidCallback callback) {
+    _timer?.cancel();
+    _timer = Timer(delay, callback);
   }
 }

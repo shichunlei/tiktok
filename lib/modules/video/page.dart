@@ -13,10 +13,11 @@ import 'logic.dart';
 class VideoPage extends StatelessWidget {
   final String tag;
   final Video video;
+  final bool isLast;
 
-  const VideoPage({super.key, required this.tag, required this.video});
+  const VideoPage({super.key, required this.tag, required this.video, this.isLast = false});
 
-  VideoLogic get logic => Get.put(VideoLogic(video.url!), tag: tag);
+  VideoLogic get logic => Get.put(VideoLogic(video.url!, isLast), tag: tag);
 
   @override
   Widget build(BuildContext context) {
